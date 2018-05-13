@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HomeBottomView" representedClassName="HomeBottomView" syncable="YES" codeGenerationType="class">
+        <attribute name="itemImageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="HomeCollectionView" representedClassName="HomeCollectionView" syncable="YES" codeGenerationType="class">
         <attribute name="itemImageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HomeCollectionView" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="HomeCollectionView" positionX="-4752" positionY="-18" width="162" height="73"/>
+        <element name="HomeBottomView" positionX="-4725" positionY="9" width="128" height="73"/>
     </elements>
 </model>

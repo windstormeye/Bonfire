@@ -12,6 +12,8 @@ class PJHomeCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
 
     let identifierString = "PJHomeCollectionView"
     
+    public var dataArray: Array<Any>?
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         initView()
@@ -22,6 +24,9 @@ class PJHomeCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     }
     
     private func initView() {
+        
+        dataArray = []
+        
         delegate = self
         dataSource = self
         backgroundColor = UIColor.clear
@@ -35,13 +40,18 @@ class PJHomeCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if dataArray == nil {
+            return 0
+        } else {
+            return (dataArray?.count)!
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: identifierString,
                                                        for: indexPath) as! PJHomeCollectionViewCell
+        cell.cellDataDict = dataArray?[indexPath.row] as! Dictionary
         return cell;
     }
     

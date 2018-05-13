@@ -10,25 +10,24 @@ import UIKit
 
 class PJHomeCollectionViewCell: UICollectionViewCell {
     
-    public var cellDataDict: Dictionary<String, String>?
+    private var tempCellDataDict: Dictionary<String, String>?
+    public var cellDataDict: Dictionary<String, String> {
+        get {
+            return self.tempCellDataDict!
+        } set (dict) {
+            self.tempCellDataDict = dict
+            initView()
+        }
+    }
     
     private var cellImageView: UIImageView?
     private var cellTitleLabel: UILabel?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     private func initView() {
         cellImageView = {() -> UIImageView in
             let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0,
                                                                 width: self.width, height: self.width))
-            imageView.image = UIImage.init(named: "home_message")
+            imageView.image = UIImage.init(named: cellDataDict["itemImageName"]!)
             self.addSubview(imageView)
             return imageView
         }()
@@ -39,7 +38,7 @@ class PJHomeCollectionViewCell: UICollectionViewCell {
             label.font = UIFont.systemFont(ofSize: 13)
             label.textColor = UIColor.white
             label.textAlignment = .center
-            label.text = "紧急消息"
+            label.text = cellDataDict["itemName"]
             self.addSubview(label)
             return label
         }()
