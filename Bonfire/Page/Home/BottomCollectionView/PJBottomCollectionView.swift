@@ -14,8 +14,11 @@ class PJBottomCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
     
     public var dataArray: Array<Any>?
     
+    private var viewLayout: UICollectionViewFlowLayout?
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
+        viewLayout = layout as? UICollectionViewFlowLayout
         initView()
     }
     
@@ -57,5 +60,15 @@ class PJBottomCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.row)")
     }
+    
+    override func reloadData() {
+        super.reloadData()
+        let cellCount = self.numberOfItems(inSection: 0)
+        let combinedItemWidth = (cellCount * Int((viewLayout?.itemSize.width)!)) + ((cellCount - 1) * Int((viewLayout?.minimumInteritemSpacing)!))
+        var padding = (Int(self.width) - combinedItemWidth) / 2
+        padding = padding > 0 ? padding :0 ;
+        viewLayout?.sectionInset = UIEdgeInsets.init(top: 15, left: CGFloat(padding), bottom: 0, right: CGFloat(padding))
+    }
+    
 
 }

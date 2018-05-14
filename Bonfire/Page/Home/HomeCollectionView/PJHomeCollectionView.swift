@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol PJHomeCollectionViewDelegate {
+    func homeCollectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+}
+
 class PJHomeCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
 
     let identifierString = "PJHomeCollectionView"
     
     public var dataArray: Array<Any>?
+    public var viewDelegate: PJHomeCollectionViewDelegate?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -56,7 +61,7 @@ class PJHomeCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
+        viewDelegate?.homeCollectionView(self, didSelectItemAt: indexPath)
     }
     
 }

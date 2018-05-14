@@ -21,9 +21,8 @@ class PJMessageViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = UIColor.white
-        
-//        let navigationVC = UINavigationController.init(rootViewController: self)
-        
+        title = "紧急短信"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
 }

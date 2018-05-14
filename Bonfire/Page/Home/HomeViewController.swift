@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
 
     private var colletionView: PJHomeCollectionView?
     private var bottomView: PJBottomCollectionView?
@@ -52,6 +52,7 @@ class HomeViewController: UIViewController {
         homeLayout.sectionInset = UIEdgeInsets.init(top: 10, left: 25, bottom: 0, right: 25)
 
         colletionView = PJHomeCollectionView.init(frame: view.frame, collectionViewLayout: homeLayout)
+        colletionView?.viewDelegate = self
         view.addSubview(colletionView!)
 
         let bottomLayout = UICollectionViewFlowLayout()
@@ -74,6 +75,21 @@ class HomeViewController: UIViewController {
 
     }
 
+    func homeCollectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var vc: UIViewController? = nil
+        
+        switch indexPath.row {
+        case 0:
+            vc = PJMessageViewController.init()
+            break
+        default:
+            break
+        }
+        
+        let nav = UINavigationController.init(rootViewController: vc!)
+        self.present(nav, animated: true, completion: nil)
+    }
+    
     private func initCollectionViewData() {
         let app = UIApplication.shared.delegate as! AppDelegate
         let context = app.persistentContainer.viewContext
