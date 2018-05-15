@@ -15,7 +15,6 @@
 		74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065920A71AE10082DB57 /* HomeViewController.swift */; };
 		74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065E20A71AE10082DB57 /* Bonfire.xcdatamodeld */; };
 		74A4066220A71AE20082DB57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A4066120A71AE20082DB57 /* Assets.xcassets */; };
-		74A4066520A71AE20082DB57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A4066320A71AE20082DB57 /* LaunchScreen.storyboard */; };
 		74A4067020A71AE20082DB57 /* BonfireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4066F20A71AE20082DB57 /* BonfireTests.swift */; };
 		74A4067B20A71AE20082DB57 /* BonfireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4067A20A71AE20082DB57 /* BonfireUITests.swift */; };
 		74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */; };
@@ -50,7 +49,6 @@
 		74A4065920A71AE10082DB57 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		74A4065F20A71AE10082DB57 /* Bonfire.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bonfire.xcdatamodel; sourceTree = "<group>"; };
 		74A4066120A71AE20082DB57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		74A4066420A71AE20082DB57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74A4066620A71AE20082DB57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74A4066B20A71AE20082DB57 /* BonfireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BonfireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A4066F20A71AE20082DB57 /* BonfireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonfireTests.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 				740A3BD020A724A900E684DF /* Ability */,
 				74A4E48120A7FA8600FC0B28 /* Page */,
 				74A4066120A71AE20082DB57 /* Assets.xcassets */,
-				74A4066320A71AE20082DB57 /* LaunchScreen.storyboard */,
 				74A4066620A71AE20082DB57 /* Info.plist */,
 				74A4065E20A71AE10082DB57 /* Bonfire.xcdatamodeld */,
 			);
@@ -363,7 +360,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74A4066520A71AE20082DB57 /* LaunchScreen.storyboard in Resources */,
 				74A4066220A71AE20082DB57 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,17 +428,6 @@
 			targetProxy = 74A4067720A71AE20082DB57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		74A4066320A71AE20082DB57 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				74A4066420A71AE20082DB57 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		74A4067D20A71AE20082DB57 /* Debug */ = {
@@ -563,6 +548,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6J5965DZK;
 				INFOPLIST_FILE = Bonfire/Info.plist;
@@ -582,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6J5965DZK;
 				INFOPLIST_FILE = Bonfire/Info.plist;
