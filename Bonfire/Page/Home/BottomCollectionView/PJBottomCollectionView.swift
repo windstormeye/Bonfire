@@ -63,6 +63,7 @@ class PJBottomCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
     
     override func reloadData() {
         super.reloadData()
+        // 居中
         let cellCount = self.numberOfItems(inSection: 0)
         let combinedItemWidth = (cellCount * Int((viewLayout?.itemSize.width)!)) + ((cellCount - 1) * Int((viewLayout?.minimumInteritemSpacing)!))
         var padding = (Int(self.width) - combinedItemWidth) / 2

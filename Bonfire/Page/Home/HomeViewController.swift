@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Hero
 
 class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
 
@@ -17,11 +18,6 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
     }
     
     func initView() {
@@ -82,11 +78,17 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         case 0:
             vc = PJMessageViewController.init()
             break
+        case 1:
+            vc = PJPhotoViewController.init()
+            break
         default:
             break
         }
         
         let nav = UINavigationController.init(rootViewController: vc!)
+        nav.hero.isEnabled = true
+        nav.hero.modalAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
+        PJTapic.select()
         self.present(nav, animated: true, completion: nil)
     }
     

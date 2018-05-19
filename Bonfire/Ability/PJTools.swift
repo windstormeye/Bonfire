@@ -10,8 +10,8 @@ import UIKit
 import Foundation
 
 // 屏幕宽高
-let PJSCREEN_HEIGHT = CGFloat(UIScreen.main.bounds.height)
-let PJSCREEN_WIDTH = CGFloat(UIScreen.main.bounds.width)
+let PJSCREEN_HEIGHT = UIScreen.main.bounds.height
+let PJSCREEN_WIDTH = UIScreen.main.bounds.width
 
 let PJTABBAR_HEIGHT = CGFloat(48)
 
