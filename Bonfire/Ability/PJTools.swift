@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import MediaPlayer
 
 // 屏幕宽高
 let PJSCREEN_HEIGHT = UIScreen.main.bounds.height
@@ -56,6 +57,12 @@ func PJRGB(r: CGFloat, g:CGFloat, b:CGFloat) -> UIColor {
 // 设备相关
 func PJDeviceWithPortrait() -> Bool {
     return UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown
+}
+
+func PJHiddenSystemVolumnHUD() {
+    // 隐藏系统音量
+    UIApplication.shared.keyWindow?.insertSubview(MPVolumeView(frame: CGRect.init(x: -2000, y: -2000,
+                                                                                  width: 1, height: 1)), at: 0)
 }
 
 func PJDevice() -> String {

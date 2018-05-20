@@ -11,7 +11,7 @@ import AVFoundation
 
 
 class PJPhotoCameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
-
+    
     private lazy var  session : AVCaptureSession = AVCaptureSession()
     //输入设备 (摄像头)
     private var deviceInput : AVCaptureInput?
@@ -42,17 +42,12 @@ class PJPhotoCameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             }
         }()
         
-        initView()
+        startScan()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func initView() {
-        startScan()
-    }
-
     
     private func startScan(){
         //1.判断能否将输入添加到会话中

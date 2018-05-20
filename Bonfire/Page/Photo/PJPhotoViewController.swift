@@ -7,10 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 class PJPhotoViewController: UIViewController {
-
-    public var backScrollView: UIScrollView?
+    private var frontCameraView: PJPhotoCameraView?
+    private var backCameraView: PJPhotoCameraView?
+    private var coverButton: UIButton?
+    private var coverView: UIView?
+    
+    private var isReversed: Bool?
+    private var volume: Float?
+    private var isAddVolume: Bool?
+    private var touchVolumeBtnIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,9 +27,18 @@ class PJPhotoViewController: UIViewController {
     }
     
     private func initView() {
+        try! AVAudioSession.sharedInstance().setActive(true)
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        PJHiddenSystemVolumnHUD()
+        
+        volume = AVAudioSession.sharedInstance().outputVolume + 0.001
+        isReversed = true
+        touchVolumeBtnIndex = 0
+        
         view.backgroundColor = UIColor.white
-        title = "紧急拍照"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "Cancel"),
                                                                 style: .done,
@@ -30,42 +48,35 @@ class PJPhotoViewController: UIViewController {
                                                                  target: self,
                                                                  action: #selector(editBarButtonClick))
         
-        backScrollView = {
-            let scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0,
-                                                                  width: PJSCREEN_WIDTH,
-                                                                  height: self.view.height))
-            view.addSubview(scrollView)
-            scrollView.backgroundColor = UIColor.clear
-            scrollView.contentSize = CGSize.init(width: 0, height: PJSCREEN_HEIGHT + 1)
-            return scrollView
-        }()
+        backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+                                                                   width: PJSCREEN_WIDTH,
+                                                                   height: PJSCREEN_HEIGHT),
+                                                cameraType: .back)
+        view.addSubview(backCameraView!)
         
-        _ = { () -> UIButton in
-            let button = UIButton.init(frame: CGRect.init(x: 0, y: 0,
-                                                          width: PJSCREEN_WIDTH,
-                                                          height: (backScrollView?.height)! / 3))
-            backScrollView?.addSubview(button)
-            button.setTitle("前", for: .normal)
-            button.setTitleColor(UIColor.black, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 58)
-            button.addTarget(self, action: #selector(frontCameraBtnClick), for: .touchUpInside)
-
+        coverButton = {
+            let button = UIButton.init(frame: (backCameraView?.frame)!)
+            view.addSubview(button)
+            view.bringSubview(toFront: button)
+            button.backgroundColor = UIColor.clear
+            button.addTarget(self, action: #selector(coverBtnClick), for: .touchUpInside)
             return button
         }()
         
-        _ = { () -> UIButton in
-            let button = UIButton.init(frame: CGRect.init(x: 0, y: (backScrollView?.height)! / 3,
-                                                          width: PJSCREEN_WIDTH,
-                                                          height: (backScrollView?.height)! / 3))
-            backScrollView?.addSubview(button)
-            button.setTitle("后", for: .normal)
-            button.setTitleColor(UIColor.black, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 58)
-            button.addTarget(self, action: #selector(backCameraBtnClick), for: .touchUpInside)
-            return button
+        coverView = {
+            let tempview = UIView.init(frame: CGRect.init(x: 0,
+                                                          y: -((navigationController?.navigationBar.height)!) - 20,
+                                                          width: PJSCREEN_WIDTH, height: PJSCREEN_HEIGHT + 20))
+            tempview.backgroundColor = UIColor.black
+            tempview.isHidden = true
+            view.addSubview(tempview)
+            let onePan = UITapGestureRecognizer.init(target: self, action: #selector(coverBtnClick))
+            onePan.numberOfTapsRequired = 1
+            tempview.addGestureRecognizer(onePan)
+            return tempview
         }()
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeValueChange), name:  NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     
     @objc private func cancelBarButtonClick() {
@@ -76,14 +87,79 @@ class PJPhotoViewController: UIViewController {
         
     }
     
-    @objc private func frontCameraBtnClick() {
-        let cameraView = PJPhotoCameraView.init(frame: view.frame, cameraType: .front)
-        view.addSubview(cameraView)
+    private func changeCameraView() {
+        if isReversed == true {
+            frontCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+                                                                        width: PJSCREEN_WIDTH,
+                                                                        height: PJSCREEN_HEIGHT),
+                                                     cameraType: .front)
+            view.addSubview(frontCameraView!)
+            UIView.transition(from: backCameraView!, to: frontCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft) { (animation) in
+                if animation == true {
+                    self.backCameraView?.removeFromSuperview()
+                    self.isReversed = false
+                    // 重新把coverButton拉取到最上层
+                    self.view.bringSubview(toFront: self.coverView!)
+                    self.view.bringSubview(toFront: self.coverButton!)
+                    PJTapic.succee()
+                }
+            }
+        } else {
+            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+                                                                       width: PJSCREEN_WIDTH,
+                                                                       height: PJSCREEN_HEIGHT),
+                                                    cameraType: .back)
+            view.addSubview(backCameraView!)
+            UIView.transition(from: frontCameraView!, to: backCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight) { (animation) in
+                if animation == true {
+                    self.frontCameraView?.removeFromSuperview()
+                    self.isReversed = true
+                    // 重新把coverButton拉取到最上层
+                    self.view.bringSubview(toFront: self.coverView!)
+                    self.view.bringSubview(toFront: self.coverButton!)
+                    PJTapic.succee()
+                }
+            }
+        }
     }
     
-    @objc private func backCameraBtnClick() {
-        let cameraView = PJPhotoCameraView.init(frame: view.frame, cameraType: .back)
-        view.addSubview(cameraView)
+    @objc private func coverBtnClick() {
+        PJTapic.select()
+    }
+    
+    @objc private func volumeValueChange() {
+        var tempVolume = AVAudioSession.sharedInstance().outputVolume
+        
+        if  tempVolume != 0.0 && tempVolume != 1.0 {
+            tempVolume -= 0.0625
+        }
+        print(volume!, tempVolume)
+        if tempVolume == 1.0 {
+            touchVolumeBtnIndex! += 1
+            if touchVolumeBtnIndex! >= 2 {
+                coverView?.isHidden = !(coverView?.isHidden)!
+                touchVolumeBtnIndex = 0
+            }
+            return
+        }
+        if volume! > tempVolume {
+            changeCameraView()
+        } else {
+            touchVolumeBtnIndex! += 1
+            if touchVolumeBtnIndex! >= 2 {
+                coverView?.isHidden = !(coverView?.isHidden)!
+                touchVolumeBtnIndex = 0
+            }
+        }
+        volume = tempVolume
+        if volume == 0 {
+            volume! += 0.001
+        }
+        
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 
 }

@@ -247,13 +247,6 @@
 			path = Clock;
 			sourceTree = "<group>";
 		};
-		74A4E47C20A7FA3D00FC0B28 /* Video */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
 		74A4E47D20A7FA5D00FC0B28 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,7 +283,6 @@
 				74A4E47F20A7FA7100FC0B28 /* Sound */,
 				74A4E47E20A7FA6400FC0B28 /* Card */,
 				74A4E47D20A7FA5D00FC0B28 /* Map */,
-				74A4E47C20A7FA3D00FC0B28 /* Video */,
 				74A4E47B20A7FA3100FC0B28 /* Clock */,
 				74A4E47A20A7FA2A00FC0B28 /* Setting */,
 				74A4E47920A7FA2500FC0B28 /* Photo */,
