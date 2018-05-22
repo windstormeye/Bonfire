@@ -81,6 +81,8 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         case 1:
             vc = PJPhotoViewController.init()
             break
+        case 4:
+            vc = PJMapViewController.init()
         default:
             break
         }

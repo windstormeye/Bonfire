@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Photos
+
 
 class PJPhotoViewController: UIViewController {
     private var frontCameraView: PJPhotoCameraView?
@@ -24,6 +26,17 @@ class PJPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        
+        // 检查授权
+        if  isRightCamera() {
+            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+                                                                       width: PJSCREEN_WIDTH,
+                                                                       height: PJSCREEN_HEIGHT),
+                                                    cameraType: .back)
+            view.addSubview(backCameraView!)
+        } else {
+            PJShowSettingAlert(viewController: self, title: "未能打开相机", message: "点击前往”设置“打开授权")
+        }
     }
     
     private func initView() {
@@ -47,15 +60,8 @@ class PJPhotoViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .compose,
                                                                  target: self,
                                                                  action: #selector(editBarButtonClick))
-        
-        backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-                                                                   width: PJSCREEN_WIDTH,
-                                                                   height: PJSCREEN_HEIGHT),
-                                                cameraType: .back)
-        view.addSubview(backCameraView!)
-        
         coverButton = {
-            let button = UIButton.init(frame: (backCameraView?.frame)!)
+            let button = UIButton.init(frame: view.frame)
             view.addSubview(button)
             view.bringSubview(toFront: button)
             button.backgroundColor = UIColor.clear
@@ -157,9 +163,15 @@ class PJPhotoViewController: UIViewController {
         }
         
     }
-    
+
+    // 相机权限
+    func isRightCamera() -> Bool {
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        return authStatus != .restricted && authStatus != .denied
+    }
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
 }

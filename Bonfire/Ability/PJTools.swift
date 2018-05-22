@@ -65,6 +65,28 @@ func PJHiddenSystemVolumnHUD() {
                                                                                   width: 1, height: 1)), at: 0)
 }
 
+func PJShowSettingAlert(viewController: UIViewController, title:String, message:String) {
+    DispatchQueue.main.async(execute: { () -> Void in
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title:"取消", style: .cancel, handler:nil)
+        let settingsAction = UIAlertAction(title:"去设置", style: .default, handler: { (action) -> Void in
+            let url = URL(string: UIApplicationOpenSettingsURLString)
+            if let url = url, UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        viewController.present(alertController, animated: true, completion: nil)
+    })
+}
+
 func PJDevice() -> String {
     let currentScreen = UIScreen.main.currentMode?.size
     if currentScreen == CGSize.init(width: 1125, height: 2436) {

@@ -25,6 +25,7 @@
 		74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */; };
 		74A4E48520A879CC00FC0B28 /* PJBottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */; };
 		74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48620A88C7C00FC0B28 /* PJMessageViewController.swift */; };
+		74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionView.swift; sourceTree = "<group>"; };
 		74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionViewCell.swift; sourceTree = "<group>"; };
 		74A4E48620A88C7C00FC0B28 /* PJMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMessageViewController.swift; sourceTree = "<group>"; };
+		74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 		74A4E47D20A7FA5D00FC0B28 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */,
 				740A3BD820A729C400E684DF /* PJHomeCollectionViewCell.swift in Sources */,
 				740A3BDA20A72E5100E684DF /* PJTools-UIView+Position.swift in Sources */,
+				74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */,
 				74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */,
 				74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */,
 				74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */,
