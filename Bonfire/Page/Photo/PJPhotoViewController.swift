@@ -11,26 +11,19 @@ import MediaPlayer
 import Photos
 
 
-class PJPhotoViewController: UIViewController {
+class PJPhotoViewController: UIViewController, PJCameraViewDelegate {
     private var frontCameraView: PJPhotoCameraView?
     private var backCameraView: PJCameraView?
     private var coverButton: UIButton?
+    private var cameraTagButton: UIButton?
     private var coverView: UIView?
-    
-    private var isReversed: Bool?
-    private var volume: Float?
-    private var isAddVolume: Bool?
-    private var touchVolumeBtnIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // 检查授权
         if  isRightCamera() {
-//            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-//                                                                       width: PJSCREEN_WIDTH,
-//                                                                       height: PJSCREEN_HEIGHT),
-//                                                    cameraType: .back)
             backCameraView = PJCameraView.init(frame: view.frame)
+            backCameraView?.delegate = self
             view.addSubview(backCameraView!)
         } else {
             PJShowSettingAlert(viewController: self, title: "未能打开相机", message: "点击前往”设置“打开授权")
@@ -44,22 +37,25 @@ class PJPhotoViewController: UIViewController {
         UIApplication.shared.beginReceivingRemoteControlEvents()
         PJHiddenSystemVolumnHUD()
         
-        volume = AVAudioSession.sharedInstance().outputVolume + 0.001
-        isReversed = true
-        touchVolumeBtnIndex = 0
-        
         view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage.init()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "Cancel"),
                                                                 style: .done,
                                                                 target: self,
                                                                 action: #selector(cancelBarButtonClick))
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .compose,
-                                                                 target: self,
-                                                                 action: #selector(editBarButtonClick))
+        
+        let tView = UIView.init(frame: CGRect.init(x: (PJSCREEN_WIDTH - (navigationController?.navigationBar.width)! * 0.7) / 2, y: 0, width: (navigationController?.navigationBar.width)! * 0.7, height: (navigationController?.navigationBar.height)!))
+        tView.backgroundColor = UIColor.clear
+        navigationItem.titleView = tView
+        let tViewTap = UITapGestureRecognizer.init(target: self, action: #selector(navigationBarTap))
+        tViewTap.numberOfTapsRequired = 1
+        tView.addGestureRecognizer(tViewTap)
+        
+        
         coverButton = {
             let button = UIButton.init(frame: view.frame)
             view.addSubview(button)
@@ -82,7 +78,15 @@ class PJPhotoViewController: UIViewController {
             return tempview
         }()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeValueChange), name:  NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        cameraTagButton = {
+            let button = UIButton.init(frame: CGRect.init(x: PJSCREEN_WIDTH - 40, y: (navigationController?.navigationBar.height)! - 40, width: 30, height: 30))
+            navigationController?.navigationBar.addSubview(button)
+            button.setImage(UIImage.init(named: "backCamera"), for: .normal)
+            
+            return button
+        }()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeCameraView), name:  NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
     }
     
     @objc private func cancelBarButtonClick() {
@@ -96,84 +100,39 @@ class PJPhotoViewController: UIViewController {
         
     }
     
-    private func changeCameraView() {
-        
+    @objc private func changeCameraView() {
         backCameraView?.switchCameraControl()
-        
-//        if isReversed == true {
-//            frontCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-//                                                                        width: PJSCREEN_WIDTH,
-//                                                                        height: PJSCREEN_HEIGHT),
-//                                                     cameraType: .front)
-//            view.addSubview(frontCameraView!)
-//            UIView.transition(from: backCameraView!, to: frontCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft) { (animation) in
-//                if animation == true {
-//                    self.backCameraView?.removeFromSuperview()
-//                    self.isReversed = false
-//                    // 重新把coverButton拉取到最上层
-//                    self.view.bringSubview(toFront: self.coverView!)
-//                    self.view.bringSubview(toFront: self.coverButton!)
-//                    PJTapic.succee()
-//                }
-//            }
-//        } else {
-////            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-////                                                                       width: PJSCREEN_WIDTH,
-////                                                                       height: PJSCREEN_HEIGHT),
-////                                                    cameraType: .back)
-//            view.addSubview(backCameraView!)
-//            UIView.transition(from: frontCameraView!, to: backCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight) { (animation) in
-//                if animation == true {
-//                    self.frontCameraView?.removeFromSuperview()
-//                    self.isReversed = true
-//                    // 重新把coverButton拉取到最上层
-//                    self.view.bringSubview(toFront: self.coverView!)
-//                    self.view.bringSubview(toFront: self.coverButton!)
-//                    PJTapic.succee()
-//                }
-//            }
-//        }
+        if (backCameraView?.isFrontCamera)! {
+            cameraTagButton?.setImage(UIImage.init(named: "frontCamera"), for: .normal)
+        } else {
+            cameraTagButton?.setImage(UIImage.init(named: "backCamera"), for: .normal)
+        }
     }
     
     @objc private func coverBtnClick() {
-        if !isRightAlbum() {
-            PJTapic.select()
-//            let img = UIImageView.init(frame: view.frame)
-//            img.image = PJToolCaptureView(view: view)
-//            view.addSubview(img)
-            backCameraView?.takePhoto()
-        } else {
-            PJShowSettingAlert(viewController: self, title: "Bonfire需要您的相册权限", message: "前往”设置“授权")
+    
+        PHPhotoLibrary.requestAuthorization { (status) in
+            if status == .authorized {
+                self.backCameraView?.takePhoto()
+            } else {
+                PJShowSettingAlert(viewController: self,
+                                   title: "Bonfire需要您的相册权限",
+                                   message: "前往”设置“授权")
+            }
         }
+        
     }
     
-    @objc private func volumeValueChange() {
-        var tempVolume = AVAudioSession.sharedInstance().outputVolume
-        
-        if  tempVolume != 0.0 && tempVolume != 1.0 {
-            tempVolume -= 0.0625
-        }
-        print(volume!, tempVolume)
-        if tempVolume == 1.0 {
-            touchVolumeBtnIndex! += 1
-            if touchVolumeBtnIndex! >= 2 {
-                coverView?.isHidden = !(coverView?.isHidden)!
-                touchVolumeBtnIndex = 0
-            }
-            return
-        }
-        if volume! > tempVolume {
-            changeCameraView()
+    func takePhotoImage(image: UIImage) {
+        PJTapic.select()
+    }
+    
+    @objc func navigationBarTap() {
+        PJTapic.succee()
+        if (coverView?.isHidden)! {
+            coverView?.isHidden = false
         } else {
-            touchVolumeBtnIndex! += 1
-            if touchVolumeBtnIndex! >= 2 {
-                coverView?.isHidden = !(coverView?.isHidden)!
-                touchVolumeBtnIndex = 0
-            }
-        }
-        volume = tempVolume
-        if volume == 0 {
-            volume! += 0.001
+            coverView?.isHidden = true
         }
         
     }
