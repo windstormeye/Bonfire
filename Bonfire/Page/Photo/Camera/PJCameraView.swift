@@ -35,6 +35,7 @@ class PJCameraView: UIView, AVCapturePhotoCaptureDelegate {
         let device = AVCaptureDevice.default(for: AVMediaType.video)
         videoInput = try! AVCaptureDeviceInput.init(device: device!)
         
+        // 非iOS 10
         stillImageOutput = AVCaptureStillImageOutput.init()
         let outputSettings = [
             AVVideoCodecKey : AVVideoCodecType.jpeg
@@ -67,61 +68,60 @@ class PJCameraView: UIView, AVCapturePhotoCaptureDelegate {
     }
     
     public func switchCameraControl() {
-//        var position: AVCaptureDevice.Position?
-//        if isFrontCamera! {
-//            position = AVCaptureDevice.Position.front
-//        } else {
-//            position = AVCaptureDevice.Position.back
-//        }
-        
-        //获取之前的镜头
-        
-        guard var position = videoInput?.device.position else { return }
-        //获取当前应该显示的镜头
-        position = position == .front ? .back : .front
-        //创建新的device
-        let device = AVCaptureDevice.default(for: AVMediaType.video)
-        
-        // 1.2.取出获取前置摄像头
-        //input
-        let input = try? AVCaptureDeviceInput(device: device!)
-        //切换
-        session?.removeInput(videoInput!)
-        session?.addInput(input!)
-        session?.commitConfiguration()
-        self.videoInput = input
-        
-//        for d: AVCaptureDevice in AVCaptureDevice.devices(for: .video) {
-//            if d.position == position {
-//                previewLayer?.session?.beginConfiguration()
-//                let input = try? AVCaptureDeviceInput(device: d)
-//                for oldInput in (previewLayer?.session?.inputs)! {
-//                    previewLayer?.session?.removeInput(oldInput)
-//                }
-//                previewLayer?.session?.addInput(input!)
-//                previewLayer?.session?.commitConfiguration()
-//                break
-//            }
-//        }
-        
+        var position: AVCaptureDevice.Position?
+        if isFrontCamera! {
+            position = AVCaptureDevice.Position.front
+        } else {
+            position = AVCaptureDevice.Position.back
+        }
+
+        if #available(iOS 10.0, *) {
+            for d: AVCaptureDevice in AVCaptureDevice.DiscoverySession.init(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: position!).devices {
+                if d.position == position {
+                    previewLayer?.session?.beginConfiguration()
+                    let input = try? AVCaptureDeviceInput(device: d)
+                    for oldInput in (previewLayer?.session?.inputs)! {
+                        previewLayer?.session?.removeInput(oldInput)
+                    }
+                    previewLayer?.session?.addInput(input!)
+                    previewLayer?.session?.commitConfiguration()
+                    break
+                }
+            }
+        } else {
+            for d: AVCaptureDevice in AVCaptureDevice.devices(for: .video) {
+                if d.position == position {
+                    previewLayer?.session?.beginConfiguration()
+                    let input = try? AVCaptureDeviceInput(device: d)
+                    for oldInput in (previewLayer?.session?.inputs)! {
+                        previewLayer?.session?.removeInput(oldInput)
+                    }
+                    previewLayer?.session?.addInput(input!)
+                    previewLayer?.session?.commitConfiguration()
+                    break
+                }
+            }
+        }
         
         
         isFrontCamera = !isFrontCamera!
     }
     
     public func takePhoto() {
+        if #available(iOS 10, *) {
+            imageOutput?.capturePhoto(with: AVCapturePhotoSettings.init(format: [
+                AVVideoCodecKey : AVVideoCodecType.jpeg
+                ]), delegate: self)
+        } else {
+            let stillImageConnection: AVCaptureConnection? = stillImageOutput?.connection(with: .video)
+            stillImageOutput?.captureStillImageAsynchronously(from: stillImageConnection!, completionHandler: {(_ imageDataSampleBuffer: CMSampleBuffer?, _ error: Error?) -> Void in
+                let jpegData: Data? = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
+                let imgView = UIImageView.init(frame: self.frame)
+                imgView.image = UIImage.init(data: jpegData!)
+                self.addSubview(imgView)
+            })
+        }
         
-        imageOutput?.capturePhoto(with: AVCapturePhotoSettings.init(format: [
-            AVVideoCodecKey : AVVideoCodecType.jpeg
-            ]), delegate: self)
-        
-//        let stillImageConnection: AVCaptureConnection? = stillImageOutput?.connection(with: .video)
-//        stillImageOutput?.captureStillImageAsynchronously(from: stillImageConnection!, completionHandler: {(_ imageDataSampleBuffer: CMSampleBuffer?, _ error: Error?) -> Void in
-//            let jpegData: Data? = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
-//            let imgView = UIImageView.init(frame: self.frame)
-//            imgView.image = UIImage.init(data: jpegData!)
-//            self.addSubview(imgView)
-//        })
         
     }
     
