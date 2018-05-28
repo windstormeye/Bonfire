@@ -71,5 +71,8 @@ class PJPhotoCameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
     }
     
+    public func takePhoto() {
+        let connection = deviceOutPut
+    }
     
 }

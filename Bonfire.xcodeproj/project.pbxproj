@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		740751C620BB082500F31CE9 /* PJCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740751C520BB082500F31CE9 /* PJCameraView.swift */; };
 		740A3BD220A724BF00E684DF /* PJTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A3BD120A724BF00E684DF /* PJTools.swift */; };
 		740A3BD520A7293400E684DF /* PJHomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A3BD420A7293400E684DF /* PJHomeCollectionView.swift */; };
 		740A3BD820A729C400E684DF /* PJHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A3BD720A729C400E684DF /* PJHomeCollectionViewCell.swift */; };
-		740A3BDA20A72E5100E684DF /* PJTools-UIView+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A3BD920A72E5100E684DF /* PJTools-UIView+Position.swift */; };
+		740A3BDA20A72E5100E684DF /* PJTools-Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A3BD920A72E5100E684DF /* PJTools-Position.swift */; };
 		740E0B9620AFFC9F003AEC8D /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740E0B9420AFF9B3003AEC8D /* Hero.framework */; };
 		740E0B9720AFFC9F003AEC8D /* Hero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 740E0B9420AFF9B3003AEC8D /* Hero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		740E0B9A20B00543003AEC8D /* PJTapic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740E0B9920B00543003AEC8D /* PJTapic.swift */; };
@@ -60,10 +61,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		740751C520BB082500F31CE9 /* PJCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJCameraView.swift; sourceTree = "<group>"; };
 		740A3BD120A724BF00E684DF /* PJTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTools.swift; sourceTree = "<group>"; };
 		740A3BD420A7293400E684DF /* PJHomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJHomeCollectionView.swift; sourceTree = "<group>"; };
 		740A3BD720A729C400E684DF /* PJHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJHomeCollectionViewCell.swift; sourceTree = "<group>"; };
-		740A3BD920A72E5100E684DF /* PJTools-UIView+Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PJTools-UIView+Position.swift"; sourceTree = "<group>"; };
+		740A3BD920A72E5100E684DF /* PJTools-Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PJTools-Position.swift"; sourceTree = "<group>"; };
 		740E0B9420AFF9B3003AEC8D /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		740E0B9920B00543003AEC8D /* PJTapic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTapic.swift; sourceTree = "<group>"; };
 		745B768D20B0315D0005B01F /* PJPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJPhotoViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +117,7 @@
 		740A3BD020A724A900E684DF /* Ability */ = {
 			isa = PBXGroup;
 			children = (
-				740A3BD920A72E5100E684DF /* PJTools-UIView+Position.swift */,
+				740A3BD920A72E5100E684DF /* PJTools-Position.swift */,
 				740A3BD120A724BF00E684DF /* PJTools.swift */,
 				740E0B9920B00543003AEC8D /* PJTapic.swift */,
 			);
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				749492F920B0633900028A39 /* PJPhotoCameraView.swift */,
+				740751C520BB082500F31CE9 /* PJCameraView.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				TargetAttributes = {
 					74A4065320A71AE10082DB57 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					74A4066A20A71AE20082DB57 = {
 						CreatedOnToolsVersion = 9.3;
@@ -426,8 +430,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */,
+				740751C620BB082500F31CE9 /* PJCameraView.swift in Sources */,
 				740A3BD820A729C400E684DF /* PJHomeCollectionViewCell.swift in Sources */,
-				740A3BDA20A72E5100E684DF /* PJTools-UIView+Position.swift in Sources */,
+				740A3BDA20A72E5100E684DF /* PJTools-Position.swift in Sources */,
 				74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */,
 				74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */,
 				74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */,
@@ -593,6 +598,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6J5965DZK;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -607,6 +614,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pjhubs.Bonfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -617,6 +627,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6J5965DZK;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -631,6 +643,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pjhubs.Bonfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

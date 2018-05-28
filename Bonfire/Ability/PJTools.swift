@@ -9,6 +9,8 @@
 import UIKit
 import Foundation
 import MediaPlayer
+import AVFoundation
+import Photos
 
 // 屏幕宽高
 let PJSCREEN_HEIGHT = UIScreen.main.bounds.height
@@ -59,8 +61,8 @@ func PJDeviceWithPortrait() -> Bool {
     return UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown
 }
 
+// 隐藏系统音量
 func PJHiddenSystemVolumnHUD() {
-    // 隐藏系统音量
     UIApplication.shared.keyWindow?.insertSubview(MPVolumeView(frame: CGRect.init(x: -2000, y: -2000,
                                                                                   width: 1, height: 1)), at: 0)
 }
@@ -96,9 +98,71 @@ func PJDevice() -> String {
     }
 }
 
-
+// 计算字符串长度
 func PJUILength(length: Int) -> CGFloat {
     return PJSCREEN_WIDTH * CGFloat(length) / 375
+}
+
+
+func PJToolCaptureView(view: UIView) -> UIImage {
+    UIGraphicsBeginImageContext(CGSize.init(width: view.frame.size.width, height: view.frame.size.height))
+    view.drawHierarchy(in: CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), afterScreenUpdates: false)
+    let img = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return img!
+}
+
+func PJToolConvertViewToImage(view: UIView) -> UIImage {
+    let viewSize: CGSize = view.bounds.size
+    UIGraphicsBeginImageContextWithOptions(viewSize, true, UIScreen.main.scale)
+    if let aContext = UIGraphicsGetCurrentContext() {
+        view.layer.render(in: aContext)
+    }
+    let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image!
+}
+
+func PJToolGetCurrentViewToImage() -> UIImage {
+    var imgSize = CGSize.zero
+    imgSize = UIScreen.main.bounds.size
+    UIGraphicsBeginImageContextWithOptions(imgSize, false, 0)
+    let context = UIGraphicsGetCurrentContext()
+    for window in UIApplication.shared.windows {
+        context?.saveGState()
+        context?.translateBy(x: window.center.x, y: window.center.y)
+        context?.concatenate(window.transform)
+        context?.translateBy(x: -window.bounds.size.width * window.layer.anchorPoint.x,
+                             y: -window.bounds.size.height * window.layer.anchorPoint.y)
+        
+        if window.responds(to: #selector(UIView.drawHierarchy(in:afterScreenUpdates:))) {
+            window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+        } else {
+            window.layer.render(in: context!)
+        }
+        context?.restoreGState()
+    }
+    let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image!
+}
+
+// 权限
+// 相机权限
+func isRightCamera() -> Bool {
+    let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+    return authStatus != .restricted && authStatus != .denied
+}
+
+//相册
+func isRightAlbum() -> Bool{
+      // iOS 9 及其以上系统运行
+    let status = PHPhotoLibrary.authorizationStatus()
+    if status == .authorized {
+        return true
+    } else {
+        return false
+    }
 }
 
 // 通知

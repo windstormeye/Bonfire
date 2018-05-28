@@ -80,6 +80,7 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
             break
         case 1:
             vc = PJPhotoViewController.init()
+//            vc = PJCameraView.init()
             break
         case 4:
             vc = PJMapViewController.init()
@@ -100,7 +101,7 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         
         let itemImgArray = ["home_message", "home_photo", "home_setting", "home_clock",
                             "home_map", "home_card", "home_sound", "home_warning"]
-        let itemName = ["紧急短信", "紧急相机", "设置", "定时保护", "实时共享", "救助卡", "实时录音", "一键报警"]
+        let itemName = ["紧急信息", "紧急相机", "设置", "定时保护", "实时共享", "救助卡", "实时录音", "一键报警"]
         
         for index in 0..<itemName.count {
             let homeData = NSEntityDescription.insertNewObject(forEntityName: "HomeCollectionView",

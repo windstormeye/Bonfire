@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import AVFoundation
 import MediaPlayer
 import Photos
 
 
 class PJPhotoViewController: UIViewController {
     private var frontCameraView: PJPhotoCameraView?
-    private var backCameraView: PJPhotoCameraView?
+    private var backCameraView: PJCameraView?
     private var coverButton: UIButton?
     private var coverView: UIView?
     
@@ -25,18 +24,19 @@ class PJPhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initView()
-        
         // 检查授权
         if  isRightCamera() {
-            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-                                                                       width: PJSCREEN_WIDTH,
-                                                                       height: PJSCREEN_HEIGHT),
-                                                    cameraType: .back)
+//            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+//                                                                       width: PJSCREEN_WIDTH,
+//                                                                       height: PJSCREEN_HEIGHT),
+//                                                    cameraType: .back)
+            backCameraView = PJCameraView.init(frame: view.frame)
             view.addSubview(backCameraView!)
         } else {
             PJShowSettingAlert(viewController: self, title: "未能打开相机", message: "点击前往”设置“打开授权")
         }
+        
+        initView()
     }
     
     private func initView() {
@@ -86,6 +86,9 @@ class PJPhotoViewController: UIViewController {
     }
     
     @objc private func cancelBarButtonClick() {
+        let img = UIImageView.init(frame: view.frame)
+        img.image = PJToolCaptureView(view: backCameraView!)
+        view.addSubview(img)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -94,43 +97,54 @@ class PJPhotoViewController: UIViewController {
     }
     
     private func changeCameraView() {
-        if isReversed == true {
-            frontCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-                                                                        width: PJSCREEN_WIDTH,
-                                                                        height: PJSCREEN_HEIGHT),
-                                                     cameraType: .front)
-            view.addSubview(frontCameraView!)
-            UIView.transition(from: backCameraView!, to: frontCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft) { (animation) in
-                if animation == true {
-                    self.backCameraView?.removeFromSuperview()
-                    self.isReversed = false
-                    // 重新把coverButton拉取到最上层
-                    self.view.bringSubview(toFront: self.coverView!)
-                    self.view.bringSubview(toFront: self.coverButton!)
-                    PJTapic.succee()
-                }
-            }
-        } else {
-            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
-                                                                       width: PJSCREEN_WIDTH,
-                                                                       height: PJSCREEN_HEIGHT),
-                                                    cameraType: .back)
-            view.addSubview(backCameraView!)
-            UIView.transition(from: frontCameraView!, to: backCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight) { (animation) in
-                if animation == true {
-                    self.frontCameraView?.removeFromSuperview()
-                    self.isReversed = true
-                    // 重新把coverButton拉取到最上层
-                    self.view.bringSubview(toFront: self.coverView!)
-                    self.view.bringSubview(toFront: self.coverButton!)
-                    PJTapic.succee()
-                }
-            }
-        }
+        
+        backCameraView?.switchCameraControl()
+        
+//        if isReversed == true {
+//            frontCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+//                                                                        width: PJSCREEN_WIDTH,
+//                                                                        height: PJSCREEN_HEIGHT),
+//                                                     cameraType: .front)
+//            view.addSubview(frontCameraView!)
+//            UIView.transition(from: backCameraView!, to: frontCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft) { (animation) in
+//                if animation == true {
+//                    self.backCameraView?.removeFromSuperview()
+//                    self.isReversed = false
+//                    // 重新把coverButton拉取到最上层
+//                    self.view.bringSubview(toFront: self.coverView!)
+//                    self.view.bringSubview(toFront: self.coverButton!)
+//                    PJTapic.succee()
+//                }
+//            }
+//        } else {
+////            backCameraView = PJPhotoCameraView.init(frame: CGRect.init(x: 0, y: 0,
+////                                                                       width: PJSCREEN_WIDTH,
+////                                                                       height: PJSCREEN_HEIGHT),
+////                                                    cameraType: .back)
+//            view.addSubview(backCameraView!)
+//            UIView.transition(from: frontCameraView!, to: backCameraView!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromRight) { (animation) in
+//                if animation == true {
+//                    self.frontCameraView?.removeFromSuperview()
+//                    self.isReversed = true
+//                    // 重新把coverButton拉取到最上层
+//                    self.view.bringSubview(toFront: self.coverView!)
+//                    self.view.bringSubview(toFront: self.coverButton!)
+//                    PJTapic.succee()
+//                }
+//            }
+//        }
     }
     
     @objc private func coverBtnClick() {
-        PJTapic.select()
+        if !isRightAlbum() {
+            PJTapic.select()
+//            let img = UIImageView.init(frame: view.frame)
+//            img.image = PJToolCaptureView(view: view)
+//            view.addSubview(img)
+            backCameraView?.takePhoto()
+        } else {
+            PJShowSettingAlert(viewController: self, title: "Bonfire需要您的相册权限", message: "前往”设置“授权")
+        }
     }
     
     @objc private func volumeValueChange() {
@@ -162,12 +176,6 @@ class PJPhotoViewController: UIViewController {
             volume! += 0.001
         }
         
-    }
-
-    // 相机权限
-    func isRightCamera() -> Bool {
-        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-        return authStatus != .restricted && authStatus != .denied
     }
 
     override var prefersStatusBarHidden: Bool {
