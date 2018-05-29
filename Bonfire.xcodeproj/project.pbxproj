@@ -16,7 +16,6 @@
 		740E0B9720AFFC9F003AEC8D /* Hero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 740E0B9420AFF9B3003AEC8D /* Hero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		740E0B9A20B00543003AEC8D /* PJTapic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740E0B9920B00543003AEC8D /* PJTapic.swift */; };
 		745B768E20B0315D0005B01F /* PJPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B768D20B0315D0005B01F /* PJPhotoViewController.swift */; };
-		749492FA20B0633900028A39 /* PJPhotoCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749492F920B0633900028A39 /* PJPhotoCameraView.swift */; };
 		74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065720A71AE10082DB57 /* AppDelegate.swift */; };
 		74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065920A71AE10082DB57 /* HomeViewController.swift */; };
 		74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065E20A71AE10082DB57 /* Bonfire.xcdatamodeld */; };
@@ -69,7 +68,6 @@
 		740E0B9420AFF9B3003AEC8D /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		740E0B9920B00543003AEC8D /* PJTapic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTapic.swift; sourceTree = "<group>"; };
 		745B768D20B0315D0005B01F /* PJPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJPhotoViewController.swift; sourceTree = "<group>"; };
-		749492F920B0633900028A39 /* PJPhotoCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJPhotoCameraView.swift; sourceTree = "<group>"; };
 		74A4065420A71AE10082DB57 /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A4065720A71AE10082DB57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74A4065920A71AE10082DB57 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 		749492F820B05F7A00028A39 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				749492F920B0633900028A39 /* PJPhotoCameraView.swift */,
 				740751C520BB082500F31CE9 /* PJCameraView.swift */,
 			);
 			path = Camera;
@@ -368,6 +365,11 @@
 					74A4065320A71AE10082DB57 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					74A4066A20A71AE20082DB57 = {
 						CreatedOnToolsVersion = 9.3;
@@ -442,7 +444,6 @@
 				740E0B9A20B00543003AEC8D /* PJTapic.swift in Sources */,
 				745B768E20B0315D0005B01F /* PJPhotoViewController.swift in Sources */,
 				740A3BD220A724BF00E684DF /* PJTools.swift in Sources */,
-				749492FA20B0633900028A39 /* PJPhotoCameraView.swift in Sources */,
 				740A3BD520A7293400E684DF /* PJHomeCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

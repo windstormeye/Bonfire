@@ -12,7 +12,6 @@ import Photos
 
 
 class PJPhotoViewController: UIViewController, PJCameraViewDelegate {
-    private var frontCameraView: PJPhotoCameraView?
     private var backCameraView: PJCameraView?
     private var coverButton: UIButton?
     private var cameraTagButton: UIButton?

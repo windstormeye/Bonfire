@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>写入您相册的权限</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>获取您的相册权限</string>
-	<key>NSCameraUsageDescription</key>
-	<string>获取您的相机权限</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -26,6 +20,18 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>获取您的相机权限</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>获取您的位置</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>获取您的位置</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>获取您的相册权限</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
