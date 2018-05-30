@@ -7,16 +7,12 @@
 //
 
 import UIKit
-import MapKit
-import CoreLocation
 
-class PJMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
-    private var mapView: MKMapView?
-    private var locationManager: CLLocationManager?
-    private var geocide: CLGeocoder?
+class PJMapViewController: UIViewController, PJMapDelegate {
     
-    private var annotationCoordinateArray: Array<MKPointAnnotation>?
+    private var mapView: PJMap?
+    private var declareButton: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,71 +29,61 @@ class PJMapViewController: UIViewController, MKMapViewDelegate, CLLocationManage
                                                                 target: self,
                                                                 action: #selector(cancelBarButtonClick))
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .reply, target: self, action: #selector(redoAnnotation))
-        
-        annotationCoordinateArray = []
-        
-        geocide = {
-            let ge = CLGeocoder.init()
-            return ge
-        }()
-        
-        locationManager = {
-            let manager = CLLocationManager.init()
-            manager.allowsBackgroundLocationUpdates = true
-            manager.requestAlwaysAuthorization()
-            manager.requestWhenInUseAuthorization()
-            manager.startUpdatingLocation()
-            manager.distanceFilter = 50
-            return manager
-        }()
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         mapView = {
-            let map = MKMapView.init(frame: view.frame)
-            map.delegate = self
-            map.isRotateEnabled = true
-            map.showsUserLocation = true
-            map.userTrackingMode = MKUserTrackingMode.followWithHeading
-//            map.pausesLocationUpdatesAutomatically = false
-//            map.allowsBackgroundLocationUpdates = true
+            let map = PJMap.init(frame: view.frame)
+            map.pjMapDelegate = self
             view.addSubview(map)
-
-            let longPress = UILongPressGestureRecognizer.init(target: self,
-                                                              action: #selector(mapViewLongPress(sender:)))
-            map.addGestureRecognizer(longPress)
-            
             return map
         }()
+        
+        declareButton = {
+            let button = UIButton.init(frame: CGRect.init(x: 0, y: PJSCREEN_HEIGHT, width: PJSCREEN_WIDTH * 0.9, height: 55))
+            button.centerX = view.centerX
+            button.backgroundColor = UIColor.orange
+            button.layer.cornerRadius = 10
+            button.setTitle("确定", for: .normal)
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+            button.addTarget(self, action: #selector(declareButtonClick), for: .touchUpInside)
+            view.addSubview(button)
+            return button
+        }()
+        
     }
 
     @objc private func cancelBarButtonClick() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            // 退出时停止更新用户位置信息
+            self.mapView?.stopUpdatingUserLongcationOnBackGround()
+        })
     }
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        
-        print("\(String(describing: userLocation.coordinate.longitude)) : \(String(describing: userLocation.coordinate.latitude))")
-        
+    @objc private func declareButtonClick() {
+        // 发送给实时防护
     }
     
-    @objc func mapViewLongPress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            PJTapic.select()
-            
-            let location = sender.location(in: mapView)
-            let coordinate = mapView?.convert(location, toCoordinateFrom: mapView)
-            let annotation = MKPointAnnotation.init()
-            annotation.coordinate = coordinate!
-            
-            annotationCoordinateArray?.append(annotation)
-            mapView?.addAnnotation(annotation)
+    
+    @objc func redoAnnotation() {
+        if (mapView?.annotationCoordinateArray?.count)! > 0 {
+            let ann = mapView?.annotationCoordinateArray?.last
+            mapView?.mapView?.removeAnnotation(ann!)
+            mapView?.annotationCoordinateArray?.removeLast()
+        }
+        if mapView?.annotationCoordinateArray?.count == 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            UIView.transition(with: declareButton!, duration: 0.25, options: UIViewAnimationOptions.curveLinear, animations: {
+                self.declareButton?.top = PJSCREEN_HEIGHT
+            }, completion: nil)
         }
     }
     
-    @objc func redoAnnotation() {
-        if (annotationCoordinateArray?.count)! > 0 {
-            let ann = annotationCoordinateArray?.last
-            mapView?.removeAnnotation(ann!)
-            annotationCoordinateArray?.removeLast()
+    func pjMap(map: PJMap, annotationCount: Int, touchState: UIGestureRecognizerState) {
+        if touchState == .ended && annotationCount > 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = true;
+            UIView.transition(with: declareButton!, duration: 0.25, options: UIViewAnimationOptions.curveLinear, animations: {
+                self.declareButton?.bottom = self.view.bottom - (self.declareButton?.height)! - (self.declareButton?.height)! / 2
+            }, completion: nil)
         }
     }
     

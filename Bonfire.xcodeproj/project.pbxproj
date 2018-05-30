@@ -16,6 +16,7 @@
 		740E0B9720AFFC9F003AEC8D /* Hero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 740E0B9420AFF9B3003AEC8D /* Hero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		740E0B9A20B00543003AEC8D /* PJTapic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740E0B9920B00543003AEC8D /* PJTapic.swift */; };
 		745B768E20B0315D0005B01F /* PJPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B768D20B0315D0005B01F /* PJPhotoViewController.swift */; };
+		747D283120BE7905004FAFBC /* PJMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D283020BE7905004FAFBC /* PJMap.swift */; };
 		74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065720A71AE10082DB57 /* AppDelegate.swift */; };
 		74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065920A71AE10082DB57 /* HomeViewController.swift */; };
 		74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065E20A71AE10082DB57 /* Bonfire.xcdatamodeld */; };
@@ -68,6 +69,7 @@
 		740E0B9420AFF9B3003AEC8D /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		740E0B9920B00543003AEC8D /* PJTapic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTapic.swift; sourceTree = "<group>"; };
 		745B768D20B0315D0005B01F /* PJPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJPhotoViewController.swift; sourceTree = "<group>"; };
+		747D283020BE7905004FAFBC /* PJMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMap.swift; sourceTree = "<group>"; };
 		74A4065420A71AE10082DB57 /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A4065720A71AE10082DB57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74A4065920A71AE10082DB57 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,14 @@
 				740E0B9420AFF9B3003AEC8D /* Hero.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		747D282F20BE78E1004FAFBC /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				747D283020BE7905004FAFBC /* PJMap.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		749492F820B05F7A00028A39 /* Camera */ = {
@@ -253,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */,
+				747D282F20BE78E1004FAFBC /* MapView */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -437,6 +448,7 @@
 				740A3BDA20A72E5100E684DF /* PJTools-Position.swift in Sources */,
 				74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */,
 				74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */,
+				747D283120BE7905004FAFBC /* PJMap.swift in Sources */,
 				74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */,
 				74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */,
 				74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */,
