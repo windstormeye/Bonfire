@@ -11,7 +11,7 @@ import MediaPlayer
 import Photos
 
 
-class PJPhotoViewController: UIViewController, PJCameraViewDelegate {
+class PJPhotoViewController: PJBaseViewController, PJCameraViewDelegate {
     private var backCameraView: PJCameraView?
     private var coverButton: UIButton?
     private var cameraTagButton: UIButton?
@@ -37,15 +37,8 @@ class PJPhotoViewController: UIViewController, PJCameraViewDelegate {
         PJHiddenSystemVolumnHUD()
         
         view.backgroundColor = UIColor.white
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.shadowImage = UIImage.init()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "Cancel"),
-                                                                style: .done,
-                                                                target: self,
-                                                                action: #selector(cancelBarButtonClick))
+        self.leftBarButtonItemAction(action: #selector(cancelBarButtonClick))
         
         let tView = UIView.init(frame: CGRect.init(x: (PJSCREEN_WIDTH - (navigationController?.navigationBar.width)! * 0.7) / 2, y: 0, width: (navigationController?.navigationBar.width)! * 0.7, height: (navigationController?.navigationBar.height)!))
         tView.backgroundColor = UIColor.clear

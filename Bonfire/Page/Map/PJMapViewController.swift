@@ -9,7 +9,7 @@
 import UIKit
 
 
-class PJMapViewController: UIViewController, PJMapDelegate {
+class PJMapViewController: PJBaseViewController, PJMapDelegate {
     
     private var mapView: PJMap?
     private var declareButton: UIButton?
@@ -20,15 +20,8 @@ class PJMapViewController: UIViewController, PJMapDelegate {
     }
     
     private func initView() {
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.isTranslucent = false
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "Cancel"),
-                                                                style: .done,
-                                                                target: self,
-                                                                action: #selector(cancelBarButtonClick))
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .reply, target: self, action: #selector(redoAnnotation))
+        self.leftBarButtonItemAction(action: #selector(cancelBarButtonClick))
+        self.rigthBarButtonItemAction(action: #selector(redoAnnotation), barButtonSystemItem: .reply)
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         mapView = {

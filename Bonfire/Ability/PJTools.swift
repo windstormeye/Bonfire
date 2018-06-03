@@ -157,12 +157,13 @@ func isRightCamera() -> Bool {
 //相册
 func isRightAlbum() -> Bool{
       // iOS 9 及其以上系统运行
-    let status = PHPhotoLibrary.authorizationStatus()
-    if status == .authorized {
-        return true
-    } else {
-        return false
-    }
+    let authStatus = PHPhotoLibrary.authorizationStatus()
+    return authStatus != .restricted && authStatus != .denied
+}
+
+func isRightMicrophone() -> Bool{
+    let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
+    return authStatus != .restricted && authStatus != .denied
 }
 
 // 通知

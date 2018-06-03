@@ -80,10 +80,11 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
             break
         case 1:
             vc = PJPhotoViewController.init()
-//            vc = PJCameraView.init()
             break
         case 4:
             vc = PJMapViewController.init()
+        case 6:
+            vc = PJSoundViewController.init()
         default:
             break
         }
