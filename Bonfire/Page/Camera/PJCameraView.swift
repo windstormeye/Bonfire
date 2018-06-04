@@ -53,7 +53,6 @@ class PJCameraView: UIView, AVCapturePhotoCaptureDelegate {
         let imageSetting = AVCapturePhotoSettings.init(format: setDic)
         imageOutput?.photoSettingsForSceneMonitoring = imageSetting
         
-        
         if (session?.canAddInput(videoInput!))! {
             session?.addInput(videoInput!)
         }
@@ -69,8 +68,10 @@ class PJCameraView: UIView, AVCapturePhotoCaptureDelegate {
         session?.startRunning()
     }
     
+    /*
+     *  转换前后相机
+     */
     public func switchCameraControl() {
-        
         let animation = CATransition()
         animation.duration = 0.35
         animation.timingFunction = CAMediaTimingFunction.easeInOut
@@ -104,12 +105,29 @@ class PJCameraView: UIView, AVCapturePhotoCaptureDelegate {
         isFrontCamera = !isFrontCamera!
     }
     
+    /*
+     *  拍照
+     */
     public func takePhoto() {
         imageOutput?.capturePhoto(with: AVCapturePhotoSettings.init(format: [
             AVVideoCodecKey : AVVideoCodecType.jpeg
             ]), delegate: self)
     }
     
+    /*
+     *  在开始捕获时，播放相反音波声音
+     */
+    func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+        var soundID: SystemSoundID = 0
+        let path = Bundle.main.path(forResource: "photoShutter2", ofType: "caf")
+        let flieurl = URL.init(fileURLWithPath: path!, isDirectory: false)
+        AudioServicesCreateSystemSoundID(flieurl as CFURL, &soundID)
+        AudioServicesPlaySystemSound(soundID)
+    }
+    
+    /*
+     *  保存图片
+     */
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         let data = photo.fileDataRepresentation()
         if data != nil {

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
+class PJSoundViewController: PJBaseViewController, AVAudioRecorderDelegate {
     // 录音器
     var recorder:AVAudioRecorder?
     // 播放器
@@ -18,10 +18,21 @@ class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
     var recorderSeetingsDic:[String : Any]?
     // 录音存储路径
     var aacPath:String?
+    /// 声音数据数组
+    private var soundMeters: [Float]!
+    /// 声音数据数组容量
+    private let soundMeterCount = 10
+    
+    private let recorderSetting = [AVSampleRateKey : NSNumber(value: Float(44100.0)),//声音采样率
+        AVFormatIDKey : NSNumber(value: Int32(kAudioFormatMPEG4AAC)),//编码格式
+        AVNumberOfChannelsKey : NSNumber(value: 1),//采集音轨
+        AVEncoderAudioQualityKey : NSNumber(value: Int32(AVAudioQuality.medium.rawValue))]//声音质量
     
     private var recoderButton: UIButton?
     private var playerButton: UIButton?
     
+    var lineView: PJSoundLineView?
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +77,12 @@ class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
             return button
         }()
         
+        lineView = {
+            let tempView = PJSoundLineView.init(frame: CGRect.init(x: 0, y: 0, width: view.width, height: view.height - (recoderButton?.height)! * 2 - 50))
+            view.addSubview(tempView)
+            
+            return lineView
+        }()
     }
     
     func initAudio() {
@@ -82,9 +99,8 @@ class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
         recorderSeetingsDic = [
             AVFormatIDKey: NSNumber(value: kAudioFormatMPEG4AAC),
             //录音的声道数，立体声为双声道
-            AVNumberOfChannelsKey: 2,
+            AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
-            AVEncoderBitRateKey : 320000,
             // 录音器每秒采集的录音样本数
             AVSampleRateKey : 44100.0
         ]
@@ -96,20 +112,46 @@ class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
                                         settings: recorderSeetingsDic!)
         if recorder != nil {
             recorder!.prepareToRecord()
+            recorder!.delegate = self
+            recorder!.isMeteringEnabled = true
             recorder!.record()
+        }
+        soundMeters = [Float]()
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self,
+                                     selector: #selector(updateMeters), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func updateMeters() {
+        recorder?.updateMeters()
+        addSoundMeter(item: (recorder?.averagePower(forChannel: 0))!)
+    }
+    
+    private func addSoundMeter(item: Float) {
+        if soundMeters.count < soundMeterCount {
+            soundMeters.append(item)
+        } else {
+            for (index, _) in soundMeters.enumerated() {
+                if index < soundMeterCount - 1 {
+                    soundMeters[index] = soundMeters[index + 1]
+                }
+            }
+            // 插入新数据
+            soundMeters[soundMeterCount - 1] = item
+            NotificationCenter.default.post(name: NSNotification.Name.init("updateMeters"), object: soundMeters)
         }
     }
     
     @objc private func audioStopRecoder() {
         recorder?.stop()
         recorder = nil
+        timer?.invalidate()
+        soundMeters.removeAll()
         
         UIView.animate(withDuration: 0.2, animations: {
             self.playerButton?.isHidden = false
             self.recoderButton?.left = self.view.centerX + (self.recoderButton?.width)! / 3
         }) { (animated) in
             if animated {
-                PJTapic.select()
                 UIView.animate(withDuration: 0.25, animations: {
                     self.playerButton?.bottom = (self.recoderButton?.bottom)!
                 }, completion: { (animated) in
@@ -119,10 +161,7 @@ class PJSoundViewController: PJBaseViewController, AVAudioSessionDelegate {
                 })
             }
         }
-        
     }
-    
-    
     
     @objc private func audioPlayer() {
         PJTapic.select()
