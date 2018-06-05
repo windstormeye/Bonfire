@@ -9,6 +9,7 @@
 import UIKit
 
 class PJTapic: NSObject {
+    
     class func select() {
         let g = UISelectionFeedbackGenerator.init()
         g.selectionChanged()
@@ -32,4 +33,14 @@ class PJTapic: NSObject {
         g.notificationOccurred(.error)
         g.prepare()
     }
+    
+    class func tap() {
+        UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
+    }
+    
+    class func tipsTap() {
+        // if crash, use AudioServicesPlaySystemSound(1519)
+        UIImpactFeedbackGenerator.init(style: .heavy).impactOccurred()
+    }
+    
 }

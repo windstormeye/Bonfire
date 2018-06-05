@@ -92,7 +92,7 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         let nav = UINavigationController.init(rootViewController: vc!)
         nav.hero.isEnabled = true
         nav.hero.modalAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
-        PJTapic.select()
+        PJTapic.tap()
         self.present(nav, animated: true, completion: nil)
     }
     

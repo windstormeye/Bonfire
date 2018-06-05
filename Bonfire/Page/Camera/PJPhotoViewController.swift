@@ -11,7 +11,7 @@ import MediaPlayer
 import Photos
 
 
-class PJPhotoViewController: PJBaseViewController, PJCameraViewDelegate {
+class PJPhotoViewController: PJBaseViewController {
     private var backCameraView: PJCameraView?
     private var coverButton: UIButton?
     private var cameraTagButton: UIButton?
@@ -22,7 +22,6 @@ class PJPhotoViewController: PJBaseViewController, PJCameraViewDelegate {
         // 检查授权
         if  isRightCamera() {
             backCameraView = PJCameraView.init(frame: view.frame)
-            backCameraView?.delegate = self
             view.addSubview(backCameraView!)
         } else {
             PJShowSettingAlert(viewController: self, title: "未能打开相机", message: "点击前往”设置“打开授权")
@@ -113,10 +112,6 @@ class PJPhotoViewController: PJBaseViewController, PJCameraViewDelegate {
             }
         }
         
-    }
-    
-    func takePhotoImage(image: UIImage) {
-        PJTapic.select()
     }
     
     @objc func navigationBarTap() {
