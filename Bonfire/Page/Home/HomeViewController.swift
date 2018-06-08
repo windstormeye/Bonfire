@@ -76,15 +76,20 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         
         switch indexPath.row {
         case 0:
-            vc = PJMessageViewController.init()
+            vc = PJPhotoViewController()
             break
         case 1:
-            vc = PJPhotoViewController.init()
+            vc = PJMapViewController()
             break
+        case 2:
+            vc = PJSoundViewController()
+            break;
+        case 3:
+            vc = PJProtectionViewController()
+            break;
         case 4:
-            vc = PJMapViewController.init()
-        case 6:
-            vc = PJSoundViewController.init()
+            vc = PJToolViewController()
+            break;
         default:
             break
         }
@@ -100,9 +105,8 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         let app = UIApplication.shared.delegate as! AppDelegate
         let context = app.persistentContainer.viewContext
         
-        let itemImgArray = ["home_message", "home_photo", "home_setting", "home_clock",
-                            "home_map", "home_card", "home_sound", "home_warning"]
-        let itemName = ["紧急信息", "紧急相机", "设置", "定时保护", "实时共享", "救助卡", "实时录音", "一键报警"]
+        let itemImgArray = ["home_photo", "home_map", "home_sound", "home_clock", "home_tool", "home_setting"]
+        let itemName = [ "紧急相机", "实时共享", "实时录音", "定时保护", "工具箱", "设置"]
         
         for index in 0..<itemName.count {
             let homeData = NSEntityDescription.insertNewObject(forEntityName: "HomeCollectionView",

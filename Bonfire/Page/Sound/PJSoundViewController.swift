@@ -23,6 +23,8 @@ class PJSoundViewController: PJBaseViewController, AVAudioRecorderDelegate {
     /// 声音数据数组容量
     private let soundMeterCount = 10
     
+    private var isShowPlayerButton: Bool = false
+    
     private let recorderSetting = [AVSampleRateKey : NSNumber(value: Float(44100.0)),//声音采样率
         AVFormatIDKey : NSNumber(value: Int32(kAudioFormatMPEG4AAC)),//编码格式
         AVNumberOfChannelsKey : NSNumber(value: 1),//采集音轨
@@ -151,14 +153,11 @@ class PJSoundViewController: PJBaseViewController, AVAudioRecorderDelegate {
             self.playerButton?.isHidden = false
             self.recoderButton?.left = self.view.centerX + (self.recoderButton?.width)! / 3
         }) { (animated) in
-            if animated {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.playerButton?.bottom = (self.recoderButton?.bottom)!
-                }, completion: { (animated) in
-                    if animated {
-                        PJTapic.select()
-                    }
-                })
+            if animated && self.isShowPlayerButton == false {
+                self.isShowPlayerButton = true
+                PJBounceAnimationWithUp(y: (self.recoderButton?.bottom)!,
+                                        button: self.playerButton!,
+                                        parentView: self.view)
             }
         }
     }

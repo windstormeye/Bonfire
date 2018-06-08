@@ -39,6 +39,11 @@ class PJMapViewController: PJBaseViewController, PJMapDelegate {
             button.setTitle("确定", for: .normal)
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
             button.addTarget(self, action: #selector(declareButtonClick), for: .touchUpInside)
+            button.layer.shadowColor = UIColor.orange.cgColor
+            button.layer.shadowOffset = CGSize.init(width: 0, height: 0)
+            button.layer.shadowRadius = 5;
+            button.layer.shadowOpacity = 0.8;
+            
             view.addSubview(button)
             return button
         }()
@@ -73,10 +78,13 @@ class PJMapViewController: PJBaseViewController, PJMapDelegate {
     
     func pjMap(map: PJMap, annotationCount: Int, touchState: UIGestureRecognizerState) {
         if touchState == .ended && annotationCount > 0 {
-            navigationItem.rightBarButtonItem?.isEnabled = true;
-            UIView.transition(with: declareButton!, duration: 0.25, options: UIViewAnimationOptions.curveLinear, animations: {
-                self.declareButton?.bottom = self.view.bottom - (self.declareButton?.height)! - (self.declareButton?.height)! / 2
-            }, completion: nil)
+            if !(navigationItem.rightBarButtonItem?.isEnabled)! {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                let toY = self.view.bottom - (self.declareButton?.height)! - (self.declareButton?.height)! / 2
+                PJBounceAnimationWithUp(y: toY,
+                                        button: self.declareButton!,
+                                        parentView: view)
+            }
         }
     }
     

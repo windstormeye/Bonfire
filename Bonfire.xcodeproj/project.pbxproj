@@ -19,7 +19,9 @@
 		741CF8C820C3DCC800724C7F /* PJBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741CF8C720C3DCC800724C7F /* PJBaseViewController.swift */; };
 		7431DFEB20C54FDB00D32740 /* PJSoundLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7431DFEA20C54FDB00D32740 /* PJSoundLineView.swift */; };
 		745B768E20B0315D0005B01F /* PJPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B768D20B0315D0005B01F /* PJPhotoViewController.swift */; };
-		746F67AC20C5258C007D837C /* photoShutter2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 746F67AB20C5012C007D837C /* photoShutter2.caf */; };
+		7466CAA020CABCAC003F8D71 /* PJSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466CA9F20CABCAC003F8D71 /* PJSettingViewController.swift */; };
+		7466CAA320CABCC6003F8D71 /* PJToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466CAA220CABCC6003F8D71 /* PJToolViewController.swift */; };
+		7470E71020C913CF00CA575B /* PJProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7470E70F20C913CF00CA575B /* PJProtectionViewController.swift */; };
 		747D283120BE7905004FAFBC /* PJMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D283020BE7905004FAFBC /* PJMap.swift */; };
 		74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065720A71AE10082DB57 /* AppDelegate.swift */; };
 		74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4065920A71AE10082DB57 /* HomeViewController.swift */; };
@@ -29,7 +31,6 @@
 		74A4067B20A71AE20082DB57 /* BonfireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4067A20A71AE20082DB57 /* BonfireUITests.swift */; };
 		74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */; };
 		74A4E48520A879CC00FC0B28 /* PJBottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */; };
-		74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48620A88C7C00FC0B28 /* PJMessageViewController.swift */; };
 		74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +77,9 @@
 		741CF8C720C3DCC800724C7F /* PJBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBaseViewController.swift; sourceTree = "<group>"; };
 		7431DFEA20C54FDB00D32740 /* PJSoundLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJSoundLineView.swift; sourceTree = "<group>"; };
 		745B768D20B0315D0005B01F /* PJPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJPhotoViewController.swift; sourceTree = "<group>"; };
-		746F67AB20C5012C007D837C /* photoShutter2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = photoShutter2.caf; sourceTree = "<group>"; };
+		7466CA9F20CABCAC003F8D71 /* PJSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJSettingViewController.swift; sourceTree = "<group>"; };
+		7466CAA220CABCC6003F8D71 /* PJToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJToolViewController.swift; sourceTree = "<group>"; };
+		7470E70F20C913CF00CA575B /* PJProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJProtectionViewController.swift; sourceTree = "<group>"; };
 		747D283020BE7905004FAFBC /* PJMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMap.swift; sourceTree = "<group>"; };
 		74A4065420A71AE10082DB57 /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A4065720A71AE10082DB57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +95,6 @@
 		74A4067C20A71AE20082DB57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionView.swift; sourceTree = "<group>"; };
 		74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionViewCell.swift; sourceTree = "<group>"; };
-		74A4E48620A88C7C00FC0B28 /* PJMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMessageViewController.swift; sourceTree = "<group>"; };
 		74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,9 +138,9 @@
 		740A3BD320A7290B00E684DF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				74A4065920A71AE10082DB57 /* HomeViewController.swift */,
 				740A3BDB20A7F57800E684DF /* BottomCollectionView */,
 				740A3BD620A7293800E684DF /* HomeCollectionView */,
-				74A4065920A71AE10082DB57 /* HomeViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -169,19 +171,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7466CAA120CABCB7003F8D71 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				7466CAA220CABCC6003F8D71 /* PJToolViewController.swift */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		746F67A720C4FF15007D837C /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = SupportFiles;
-			sourceTree = "<group>";
-		};
-		747D282F20BE78E1004FAFBC /* MapView */ = {
-			isa = PBXGroup;
-			children = (
-				747D283020BE7905004FAFBC /* PJMap.swift */,
-			);
-			path = MapView;
 			sourceTree = "<group>";
 		};
 		74A4064B20A71AE10082DB57 = {
@@ -212,7 +214,6 @@
 				740A3BD020A724A900E684DF /* Ability */,
 				74A4E48120A7FA8600FC0B28 /* Page */,
 				74A4066620A71AE20082DB57 /* Info.plist */,
-				746F67AB20C5012C007D837C /* photoShutter2.caf */,
 				74A4066120A71AE20082DB57 /* Assets.xcassets */,
 				74A4065E20A71AE10082DB57 /* Bonfire.xcdatamodeld */,
 				746F67A720C4FF15007D837C /* SupportFiles */,
@@ -238,14 +239,6 @@
 			path = BonfireUITests;
 			sourceTree = "<group>";
 		};
-		74A4E47820A7FA1D00FC0B28 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				74A4E48620A88C7C00FC0B28 /* PJMessageViewController.swift */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
 		74A4E47920A7FA2500FC0B28 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,31 +251,26 @@
 		74A4E47A20A7FA2A00FC0B28 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				7466CA9F20CABCAC003F8D71 /* PJSettingViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		74A4E47B20A7FA3100FC0B28 /* Clock */ = {
+		74A4E47B20A7FA3100FC0B28 /* Protection */ = {
 			isa = PBXGroup;
 			children = (
+				7470E70F20C913CF00CA575B /* PJProtectionViewController.swift */,
 			);
-			path = Clock;
+			path = Protection;
 			sourceTree = "<group>";
 		};
 		74A4E47D20A7FA5D00FC0B28 /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */,
-				747D282F20BE78E1004FAFBC /* MapView */,
+				747D283020BE7905004FAFBC /* PJMap.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		74A4E47E20A7FA6400FC0B28 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Card;
 			sourceTree = "<group>";
 		};
 		74A4E47F20A7FA7100FC0B28 /* Sound */ = {
@@ -294,25 +282,16 @@
 			path = Sound;
 			sourceTree = "<group>";
 		};
-		74A4E48020A7FA7700FC0B28 /* Warning */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Warning;
-			sourceTree = "<group>";
-		};
 		74A4E48120A7FA8600FC0B28 /* Page */ = {
 			isa = PBXGroup;
 			children = (
 				740A3BD320A7290B00E684DF /* Home */,
-				74A4E48020A7FA7700FC0B28 /* Warning */,
 				74A4E47F20A7FA7100FC0B28 /* Sound */,
-				74A4E47E20A7FA6400FC0B28 /* Card */,
 				74A4E47D20A7FA5D00FC0B28 /* Map */,
-				74A4E47B20A7FA3100FC0B28 /* Clock */,
+				74A4E47B20A7FA3100FC0B28 /* Protection */,
 				74A4E47A20A7FA2A00FC0B28 /* Setting */,
 				74A4E47920A7FA2500FC0B28 /* Camera */,
-				74A4E47820A7FA1D00FC0B28 /* Message */,
+				7466CAA120CABCB7003F8D71 /* Tool */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -430,7 +409,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				746F67AC20C5258C007D837C /* photoShutter2.caf in Resources */,
 				74A4066220A71AE20082DB57 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,13 +455,15 @@
 				740751C620BB082500F31CE9 /* PJCameraView.swift in Sources */,
 				740A3BD820A729C400E684DF /* PJHomeCollectionViewCell.swift in Sources */,
 				7431DFEB20C54FDB00D32740 /* PJSoundLineView.swift in Sources */,
+				7466CAA020CABCAC003F8D71 /* PJSettingViewController.swift in Sources */,
 				740A3BDA20A72E5100E684DF /* PJTools-Position.swift in Sources */,
 				74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */,
 				74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */,
 				741CF8C820C3DCC800724C7F /* PJBaseViewController.swift in Sources */,
 				747D283120BE7905004FAFBC /* PJMap.swift in Sources */,
-				74A4E48720A88C7C00FC0B28 /* PJMessageViewController.swift in Sources */,
 				741CF8C620C3DC7000724C7F /* PJSoundViewController.swift in Sources */,
+				7470E71020C913CF00CA575B /* PJProtectionViewController.swift in Sources */,
+				7466CAA320CABCC6003F8D71 /* PJToolViewController.swift in Sources */,
 				74A4065820A71AE10082DB57 /* AppDelegate.swift in Sources */,
 				74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */,
 				74A4E48520A879CC00FC0B28 /* PJBottomCollectionViewCell.swift in Sources */,

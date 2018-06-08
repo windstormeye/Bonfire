@@ -168,3 +168,25 @@ func isRightMicrophone() -> Bool{
 
 // 通知
 let PJNotificationName_changeLanguage = "PJNotificationNameChangeLanguage"
+
+
+
+// 动画相关
+
+func PJBounceAnimationWithUp(y: CGFloat, button: UIButton, parentView: UIView) {
+    UIView.transition(with: button, duration: 0.25, options: UIViewAnimationOptions.curveLinear, animations: {
+        button.bottom = y - 10
+    }, completion: {(animated) in
+        if animated {
+            UIView.animate(withDuration: 0.25, animations: {
+                button.bottom += 13
+            }, completion: { (animated) in
+                if animated {
+                    UIView.animate(withDuration: 0.25, animations: {
+                        button.bottom -= 3
+                    })
+                }
+            })
+        }
+    })
+}

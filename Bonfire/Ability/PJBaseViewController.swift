@@ -18,6 +18,12 @@ class PJBaseViewController: UIViewController {
         }
     }
     
+    public var isBackWithLeftBarButtonItem: Bool? {
+        didSet {
+            changeLeftBarButtonItem()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
@@ -31,6 +37,10 @@ class PJBaseViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    private func changeLeftBarButtonItem() {
+        leftBarButtonItemAction(action: #selector(pop), iconName: "back")
     }
     
     private func changePreferLargeTitles(isLarge: Bool) {
@@ -67,6 +77,10 @@ class PJBaseViewController: UIViewController {
     public func rightBatButtonItemAction(action: Selector, title: String) {
         navItem?.rightBarButtonItem = UIBarButtonItem.init(title: title, style: .plain,
                                                            target: self, action: action)
+    }
+    
+    @objc private func pop() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
