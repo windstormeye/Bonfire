@@ -32,6 +32,8 @@
 		74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */; };
 		74A4E48520A879CC00FC0B28 /* PJBottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */; };
 		74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */; };
+		74E7932220CC25E000EFDA21 /* PJBlockProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */; };
+		74E7932420CC2AC000EFDA21 /* PJBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932320CC2AC000EFDA21 /* PJBlockView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		74A4E48220A879BE00FC0B28 /* PJBottomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionView.swift; sourceTree = "<group>"; };
 		74A4E48420A879CC00FC0B28 /* PJBottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBottomCollectionViewCell.swift; sourceTree = "<group>"; };
 		74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMapViewController.swift; sourceTree = "<group>"; };
+		74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBlockProcessViewController.swift; sourceTree = "<group>"; };
+		74E7932320CC2AC000EFDA21 /* PJBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBlockView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,7 +263,8 @@
 		74A4E47B20A7FA3100FC0B28 /* Protection */ = {
 			isa = PBXGroup;
 			children = (
-				7470E70F20C913CF00CA575B /* PJProtectionViewController.swift */,
+				74E7931F20CC255700EFDA21 /* One */,
+				74E7932020CC255E00EFDA21 /* Second */,
 			);
 			path = Protection;
 			sourceTree = "<group>";
@@ -294,6 +299,23 @@
 				7466CAA120CABCB7003F8D71 /* Tool */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		74E7931F20CC255700EFDA21 /* One */ = {
+			isa = PBXGroup;
+			children = (
+				7470E70F20C913CF00CA575B /* PJProtectionViewController.swift */,
+			);
+			path = One;
+			sourceTree = "<group>";
+		};
+		74E7932020CC255E00EFDA21 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */,
+				74E7932320CC2AC000EFDA21 /* PJBlockView.swift */,
+			);
+			path = Second;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -451,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74E7932420CC2AC000EFDA21 /* PJBlockView.swift in Sources */,
 				74A4065A20A71AE10082DB57 /* HomeViewController.swift in Sources */,
 				740751C620BB082500F31CE9 /* PJCameraView.swift in Sources */,
 				740A3BD820A729C400E684DF /* PJHomeCollectionViewCell.swift in Sources */,
@@ -468,6 +491,7 @@
 				74A4E48320A879BE00FC0B28 /* PJBottomCollectionView.swift in Sources */,
 				74A4E48520A879CC00FC0B28 /* PJBottomCollectionViewCell.swift in Sources */,
 				740E0B9A20B00543003AEC8D /* PJTapic.swift in Sources */,
+				74E7932220CC25E000EFDA21 /* PJBlockProcessViewController.swift in Sources */,
 				745B768E20B0315D0005B01F /* PJPhotoViewController.swift in Sources */,
 				740A3BD220A724BF00E684DF /* PJTools.swift in Sources */,
 				740A3BD520A7293400E684DF /* PJHomeCollectionView.swift in Sources */,

@@ -14,6 +14,8 @@ class PJProtectionViewController: PJBaseViewController, UIPickerViewDelegate, UI
 
     private var datePickerView: UIPickerView?
     private var dateLabel: UILabel?
+    private var addButton: UIButton?
+    private var minusButton: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +25,13 @@ class PJProtectionViewController: PJBaseViewController, UIPickerViewDelegate, UI
     private func initView() {
         title = "保护时间"
         view.backgroundColor = .black
-        
+        navigationController?.navigationBar.shadowImage = UIImage.init()
+
         leftBarButtonItemAction(action: #selector(cancelBarButtonClick))
-        rightBatButtonItemAction(action: Selector.init(("nextVC")), title: "下一步")
+        rightBatButtonItemAction(action: #selector(nextVC), title: "下一步")
         
         datePickerView = {
-            let pickerView = UIPickerView.init(frame: CGRect.init(x: 0, y: 0, width: PJSCREEN_WIDTH * 0.8, height: PJSCREEN_WIDTH * 0.8))
+            let pickerView = UIPickerView.init(frame: CGRect.init(x: 0, y: (navBar?.height)!, width: PJSCREEN_WIDTH * 0.8, height: PJSCREEN_WIDTH * 0.8))
             pickerView.centerX = view.centerX
             pickerView.setValue(UIColor.red, forKeyPath: "textColor")
             pickerView.delegate = self
@@ -40,8 +43,9 @@ class PJProtectionViewController: PJBaseViewController, UIPickerViewDelegate, UI
         }()
         
         dateLabel = {
-            let label = UILabel.init(frame: CGRect.init(x: 0, y: (datePickerView?.bottom)!, width: PJSCREEN_WIDTH / 2, height: 50))
+            let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: PJSCREEN_WIDTH / 2, height: 50))
             label.centerX = view.centerX
+            label.bottom = (datePickerView?.bottom)! + 100
             label.textColor = .white
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textAlignment = .center
@@ -54,15 +58,56 @@ class PJProtectionViewController: PJBaseViewController, UIPickerViewDelegate, UI
             return label
         }()
         
-        datePickerView?.reloadAllComponents()
+        minusButton = {
+            let button = UIButton.init(frame: CGRect.init(x: 0, y: (dateLabel?.y)!,
+                                                          width: 50, height: 50))
+            button.x = ((dateLabel?.x)! - 50) / 2
+            button.addTarget(self, action: #selector(minusButtonClick), for: .touchUpInside)
+            button.backgroundColor = UIColor.darkGray
+            button.setTitle("－", for: .normal)
+            button.layer.cornerRadius = 8.0
+            view.addSubview(button)
+            
+            return button
+        }()
+        
+        addButton = {
+            let button = UIButton.init(frame: CGRect.init(x: 0, y: (dateLabel?.y)!,
+                                                          width: 50, height: 50))
+            button.x = (PJSCREEN_WIDTH - (dateLabel?.right)! - 50) / 2 + (dateLabel?.right)!
+            button.addTarget(self, action: #selector(addButtonClick), for: .touchUpInside)
+            button.backgroundColor = UIColor.darkGray
+            button.setTitle("＋", for: .normal)
+            button.layer.cornerRadius = 8.0
+            view.addSubview(button)
+            
+            return button
+        }()
+        
     }
     
     @objc private func cancelBarButtonClick() {
         self.dismiss(animated: true, completion: nil)
     }
 
-    private func nextVC() {
-        
+    @objc private func nextVC() {
+        let vc = PJBlockProcessViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: button methon
+    
+    @objc private func addButtonClick() {
+        let time = Int((dateLabel?.text)!)! + 1
+        dateLabel?.text = "\(time)"
+    }
+    
+    @objc private func minusButtonClick() {
+        var time = Int((dateLabel?.text)!)! - 1
+        if time <= 0 {
+            time = 0
+        }
+        dateLabel?.text = "\(time)"
     }
     
     // MARK: pickerView Delegate

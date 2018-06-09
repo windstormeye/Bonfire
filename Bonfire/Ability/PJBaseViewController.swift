@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PJBaseViewController: UIViewController {
+class PJBaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
     public var navBar: UINavigationBar?
     public var navItem: UINavigationItem?
@@ -37,6 +37,7 @@ class PJBaseViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     private func changeLeftBarButtonItem() {
