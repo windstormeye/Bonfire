@@ -8,9 +8,17 @@
 
 import UIKit
 
-class PJBlockProcessViewController: PJBaseViewController {
+class PJBlockProcessViewController: PJBaseViewController, PJBlockViewDelegate, PJBlockPopViewDelegate {
 
     private var blockView: PJBlockView?
+    
+    lazy var popView: PJBlockPopView = {
+        let popView = PJBlockPopView.init(frame: CGRect.init(x: 0, y: view.height, width: view.width, height: view.height * 0.4))
+        popView.viewDelegate = self
+        view.addSubview(popView)
+        
+        return popView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +36,7 @@ class PJBlockProcessViewController: PJBaseViewController {
         blockView = {
             let blockview = PJBlockView.init(frame: CGRect.init(x: 0, y: 0, width: PJSCREEN_WIDTH * 0.8, height: view.height))
             blockview.centerX = view.centerX
+            blockview.viewDelegate = self
             view.addSubview(blockview)
             
             return blockview
@@ -40,6 +49,22 @@ class PJBlockProcessViewController: PJBaseViewController {
     
     @objc private func cancelBarButtonClick() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func addButtonClick() {
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.popView.top = self.view.height * 0.6
+        }, completion: { (animated) in
+            if animated {
+                PJTapic.tap()
+            }
+        })
+    }
+
+    func closeButtonClick(_ view: PJBlockPopView, closeButton: UIButton) {
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.popView.top = self.view.height
+        })
     }
     
 }

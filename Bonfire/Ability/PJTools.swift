@@ -190,3 +190,19 @@ func PJBounceAnimationWithUp(y: CGFloat, button: UIButton, parentView: UIView) {
         }
     })
 }
+
+func imageWithColor(_ image: UIImage, color: UIColor) -> UIImage {
+    UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+    let context = UIGraphicsGetCurrentContext()
+    context?.translateBy(x: 0, y: image.size.height)
+    context?.scaleBy(x: 1.0, y: -1.0)
+    context!.setBlendMode(.normal)
+    let rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+    context?.clip(to: rect, mask: image.cgImage!)
+    color.setFill()
+    context?.fill(rect)
+    let newImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
+}
+

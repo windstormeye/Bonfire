@@ -24,8 +24,8 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
         if isFirstLogin == false {
             UserDefaults.standard.set(true, forKey: "isFirstLogin")
-            initCollectionViewData()
-            initBottomViewData()
+            PJHelper.initCollectionViewData()
+            PJHelper.initBottomViewData()
         }
         
         view.backgroundColor = UIColor.white
@@ -66,9 +66,12 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
                                                                     width: PJSCREEN_WIDTH, height: 90), collectionViewLayout: bottomLayout)
         view.addSubview(bottomView!)
         
-        getCollectionViewData()
-        getBottomViewData()
-
+        
+        colletionView?.dataArray = PJHelper.getCollectionViewData()
+        colletionView?.reloadData()
+        
+        bottomView?.dataArray = PJHelper.getBottomViewData()
+        bottomView?.reloadData()
     }
 
     func homeCollectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -101,97 +104,5 @@ class HomeViewController: UIViewController, PJHomeCollectionViewDelegate {
         self.present(nav, animated: true, completion: nil)
     }
     
-    private func initCollectionViewData() {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.persistentContainer.viewContext
-        
-        let itemImgArray = ["home_photo", "home_map", "home_sound", "home_clock", "home_tool", "home_setting"]
-        let itemName = [ "紧急相机", "实时共享", "实时录音", "定时保护", "工具箱", "设置"]
-        
-        for index in 0..<itemName.count {
-            let homeData = NSEntityDescription.insertNewObject(forEntityName: "HomeCollectionView",
-                                                               into: context) as! HomeCollectionView
-            homeData.itemImageName = itemImgArray[index]
-            homeData.itemName = itemName[index]
-            
-            do {
-                try context.save()
-                print("保存成功！")
-            } catch {
-                fatalError("不能保存：\(error)")
-            }
-        }
-    }
-    
-    private func getCollectionViewData() {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<HomeCollectionView>(entityName:"HomeCollectionView")
-        do {
-            let fetchedObjects = try context.fetch(fetchRequest)
-            var tempDataArray: Array<Dictionary<String, String>> = []
-            for info in fetchedObjects{
-                let dict = [
-                    "itemName" : info.itemName!,
-                    "itemImageName" : info.itemImageName!
-                ]
-                tempDataArray.append(dict)
-            }
-            colletionView?.dataArray = tempDataArray
-            colletionView?.reloadData()
-        }
-        catch {
-            fatalError("查询失败：\(error)")
-        }
-    }
-    
-    private func initBottomViewData() {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.persistentContainer.viewContext
-        
-        let itemImgArray = ["phone"]
-        let itemName = ["紧急电话"]
-        
-        for index in 0..<itemName.count {
-            let homeData = NSEntityDescription.insertNewObject(forEntityName: "HomeBottomView",
-                                                               into: context) as! HomeBottomView
-            homeData.itemImageName = itemImgArray[index]
-            homeData.itemName = itemName[index]
-            
-            do {
-                try context.save()
-                print("保存成功！")
-            } catch {
-                fatalError("不能保存：\(error)")
-            }
-        }
-    }
-    
-    private func getBottomViewData() {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<HomeBottomView>(entityName:"HomeBottomView")
-        do {
-            let fetchedObjects = try context.fetch(fetchRequest)
-            var tempDataArray: Array<Dictionary<String, String>> = []
-            for info in fetchedObjects{
-                let dict = [
-                    "itemName" : info.itemName!,
-                    "itemImageName" : info.itemImageName!
-                ]
-                tempDataArray.append(dict)
-            }
-            bottomView?.dataArray = tempDataArray
-            bottomView?.reloadData()
-        }
-        catch {
-            fatalError("查询失败：\(error)")
-        }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
-
 }
 

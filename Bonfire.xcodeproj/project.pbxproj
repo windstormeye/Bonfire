@@ -34,6 +34,8 @@
 		74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */; };
 		74E7932220CC25E000EFDA21 /* PJBlockProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */; };
 		74E7932420CC2AC000EFDA21 /* PJBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932320CC2AC000EFDA21 /* PJBlockView.swift */; };
+		74E7932620CC335500EFDA21 /* PJBlockPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932520CC335500EFDA21 /* PJBlockPopView.swift */; };
+		74E7932820CC33F000EFDA21 /* PJHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E7932720CC33F000EFDA21 /* PJHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		74D599DF20B3E88F009B94C2 /* PJMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJMapViewController.swift; sourceTree = "<group>"; };
 		74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBlockProcessViewController.swift; sourceTree = "<group>"; };
 		74E7932320CC2AC000EFDA21 /* PJBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBlockView.swift; sourceTree = "<group>"; };
+		74E7932520CC335500EFDA21 /* PJBlockPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJBlockPopView.swift; sourceTree = "<group>"; };
+		74E7932720CC33F000EFDA21 /* PJHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 				740A3BD920A72E5100E684DF /* PJTools-Position.swift */,
 				740A3BD120A724BF00E684DF /* PJTools.swift */,
 				740E0B9920B00543003AEC8D /* PJTapic.swift */,
+				74E7932720CC33F000EFDA21 /* PJHelper.swift */,
 				741CF8C720C3DCC800724C7F /* PJBaseViewController.swift */,
 			);
 			path = Ability;
@@ -314,6 +319,7 @@
 			children = (
 				74E7932120CC25E000EFDA21 /* PJBlockProcessViewController.swift */,
 				74E7932320CC2AC000EFDA21 /* PJBlockView.swift */,
+				74E7932520CC335500EFDA21 /* PJBlockPopView.swift */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -480,9 +486,11 @@
 				7431DFEB20C54FDB00D32740 /* PJSoundLineView.swift in Sources */,
 				7466CAA020CABCAC003F8D71 /* PJSettingViewController.swift in Sources */,
 				740A3BDA20A72E5100E684DF /* PJTools-Position.swift in Sources */,
+				74E7932620CC335500EFDA21 /* PJBlockPopView.swift in Sources */,
 				74D599E020B3E88F009B94C2 /* PJMapViewController.swift in Sources */,
 				74A4066020A71AE10082DB57 /* Bonfire.xcdatamodeld in Sources */,
 				741CF8C820C3DCC800724C7F /* PJBaseViewController.swift in Sources */,
+				74E7932820CC33F000EFDA21 /* PJHelper.swift in Sources */,
 				747D283120BE7905004FAFBC /* PJMap.swift in Sources */,
 				741CF8C620C3DC7000724C7F /* PJSoundViewController.swift in Sources */,
 				7470E71020C913CF00CA575B /* PJProtectionViewController.swift in Sources */,

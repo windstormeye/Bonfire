@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PJBlockViewDelegate {
+    func addButtonClick()
+}
+
 class PJBlockView: UIView {
 
     public var dataSourceArray: Array<String>? {
@@ -15,6 +19,8 @@ class PJBlockView: UIView {
             updateBlockView()
         }
     }
+    
+    public var viewDelegate: PJBlockViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +42,7 @@ class PJBlockView: UIView {
         addButton.setTitle("＋", for: .normal)
         addButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 35)
         addButton.setTitleColor(.white, for: .normal)
+        addButton.addTarget(self, action: #selector(addButtonClick), for: .touchUpInside)
         self.addSubview(addButton)
         
         let boder = CAShapeLayer.init()
@@ -49,6 +56,8 @@ class PJBlockView: UIView {
         addButton.layer .addSublayer(boder)
     }
     
-    
+    @objc private func addButtonClick() {
+        viewDelegate?.addButtonClick()
+    }
     
 }

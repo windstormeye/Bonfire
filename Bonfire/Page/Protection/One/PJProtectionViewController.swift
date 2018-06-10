@@ -136,6 +136,24 @@ class PJProtectionViewController: PJBaseViewController, UIPickerViewDelegate, UI
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         dateLabel?.text = dateArray[row]
+        if dateLabel?.text == "手动停止" {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.addButton?.alpha = 0
+                self.minusButton?.alpha = 0
+            }) { (animated) in
+                if animated {
+                    self.addButton?.isHidden = true
+                    self.minusButton?.isHidden = true
+                }
+            }
+        } else {
+            self.addButton?.isHidden = false
+            self.minusButton?.isHidden = false
+            UIView.animate(withDuration: 0.25, animations: {
+                self.addButton?.alpha = 1
+                self.minusButton?.alpha = 1
+            })
+        }
     }
     
 }
